@@ -1,19 +1,8 @@
 import { Injectable } from '@angular/core';
 import { ThrowStmt } from '../../../../node_modules/@angular/compiler';
-
-@Injectable()
-export class ColorServiceBuilder {
-
-    build(from: number, to: number): ColorService {
-        return new ColorService(from, to);
-    }
-
-}
-
 export class ColorService {
 
     constructor(private from: number, private to: number) {
-
     }
 
     range(value: number): number {
@@ -43,4 +32,11 @@ export class ColorService {
         return `hsl(${hue},100%,50%)`;
     }
 
+}
+
+@Injectable()
+export class ColorServiceBuilder {
+    build(from: number, to: number): ColorService {
+        return new ColorService(from, to);
+    }
 }
