@@ -19,7 +19,6 @@ export class ColorService {
                 return 1;
             }
         }
-
         return Math.abs((value - this.from) / (this.to - this.from));
     }
 

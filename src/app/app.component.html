@@ -1,8 +1,10 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div style="text-align:center">
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <ni-analytics-number value="20" displayValue="40"></ni-analytics-number>  
+  <ni-analytics-number [value]="value" [displayValue]="200" [fromValue]="100" [toValue]="1000"></ni-analytics-number>  
+  <br>
+  <input type="range" [(ngModel)]="value" min="0" max="1500">
+  
 </div>
 
