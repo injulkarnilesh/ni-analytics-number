@@ -11,6 +11,8 @@ import { StyleService } from '../services/style-service';
 })
 export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
 
+    static FONT_UNITS_SUPPORTED: string[] = ['px', 'em', '%', 'pt' ];
+
     @Input() value: number;
     @Input() displayValue: string;  // TODO USE
     @Input() fromValue: number;
@@ -20,12 +22,13 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     @Input() fromFontSize: number;
     @Input() toFontSize: number;
 
+    @Input() enableFontWeight = false;
+
     color: string;
     fontSize: string;
+    fontWeight: string;
 
     rangePostionBuilder: RangePositionBuilder;
-
-    fontUnitsSupported: string[] = ['px', 'em', '%', 'pt' ];
 
     constructor(private rangePositionBuilderFactory: RangePositionBuilderFactory,
                 private styleService: StyleService) {
@@ -38,14 +41,18 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
             return;
         }
         this.rangePostionBuilder = this.rangePositionBuilderFactory.forBaseRange(Range.between(this.fromValue, this.toValue));
+        this.updateView();
+    }
+
+    updateView(): void {
         this.setColor();
         this.setFont();
+        this.setFontWeight();
     }
 
     ngOnChanges(changes: SimpleChanges) {
         if (this.rangePostionBuilder && changes.value) {
-            this.setColor();
-            this.setFont();
+            this.updateView();
         }
     }
 
@@ -58,12 +65,18 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     }
 
     private setFont(): void {
-        console.log('Setting font size to', this.fromFontSize, this.toFontSize, this.fontUnit);
         if (this.validFontSize() && this.validFontUnit()) {
             this.fontSize = this.getRangePositionCalculator(this.value)
                                 .getPositionBetween(Range.between(this.fromFontSize, this.toFontSize)) +
                                 this.fontUnit;
-            console.log('Set font size to', this.fontSize);
+        }
+    }
+
+    private setFontWeight(): void {
+        if (this.enableFontWeight && `${this.enableFontWeight}` !== 'false') {
+            this.fontWeight = (Math.round(
+                this.getRangePositionCalculator(this.value).getPositionBetween(Range.between(1, 9))
+                ) * 100).toString();
         }
     }
 
@@ -72,8 +85,7 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     }
 
     private validFontUnit(): boolean {
-        return this.fontUnit && this.fontUnitsSupported.includes(this.fontUnit.toLocaleLowerCase());
+        return this.fontUnit && NiAnalyticsNumberComponent.FONT_UNITS_SUPPORTED.includes(this.fontUnit.toLocaleLowerCase());
     }
-
 
 }
