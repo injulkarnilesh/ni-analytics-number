@@ -35,6 +35,10 @@ export class RangePositionCalculator {
         return range.from + this.selector.getPosition() * (range.to - range.from);
     }
 
+    hasReached(): boolean {
+        return 1 === this.selector.getPosition();
+    }
+
 }
 
 export class RangePositionBuilder {

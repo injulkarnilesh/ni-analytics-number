@@ -23,10 +23,12 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     @Input() toFontSize: number;
 
     @Input() enableFontWeight = false;
+    @Input() enableBlinkEffect = false;
 
     color: string;
     fontSize: string;
     fontWeight: string;
+    blink: boolean;
 
     rangePostionBuilder: RangePositionBuilder;
 
@@ -46,8 +48,9 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
 
     updateView(): void {
         this.setColor();
-        this.setFont();
+        this.setFontSize();
         this.setFontWeight();
+        this.setBlinkEffect();
     }
 
     ngOnChanges(changes: SimpleChanges) {
@@ -64,7 +67,7 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
         this.color = this.styleService.getColor(this.getRangePositionCalculator(this.value));
     }
 
-    private setFont(): void {
+    private setFontSize(): void {
         if (this.validFontSize() && this.validFontUnit()) {
             this.fontSize = this.getRangePositionCalculator(this.value)
                                 .getPositionBetween(Range.between(this.fromFontSize, this.toFontSize)) +
@@ -73,10 +76,16 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     }
 
     private setFontWeight(): void {
-        if (this.enableFontWeight && `${this.enableFontWeight}` !== 'false') {
+        if (this.enableFontWeight) {
             this.fontWeight = (Math.round(
                 this.getRangePositionCalculator(this.value).getPositionBetween(Range.between(1, 9))
                 ) * 100).toString();
+        }
+    }
+
+    private setBlinkEffect(): void {
+        if (this.enableBlinkEffect) {
+            this.blink = this.getRangePositionCalculator(this.value).hasReached();
         }
     }
 
