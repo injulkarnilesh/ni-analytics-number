@@ -75,6 +75,36 @@ describe('Unit : NiAnalytics Number Component', () => {
         expect(component.color).toBe(color);
     });
 
+    describe('with font-weight', () => {
+
+        const fontWeightPosition = 2;
+
+        beforeEach(() => {
+            component.fromValue = 0;
+            component.toValue = 100;
+            rangePositionCalculator.getPositionBetween.and.returnValue(fontWeightPosition);
+        });
+
+        it('disabled should not set font weight', () => {
+            componentFixture.detectChanges();
+
+            expect(component.fontWeight).toBeUndefined();
+        });
+
+        it('enabled should set font weight', () => {
+            component.enableFontWeight = true;
+
+            componentFixture.detectChanges();
+
+            expect(component.fontWeight).toBeDefined();
+            expect(rangePositionCalculator.getPositionBetween).toHaveBeenCalledWith(
+                Range.between(1, 9)
+            );
+            expect(component.fontWeight).toBe('200');
+        });
+
+    });
+
     describe('with font-size', () => {
 
         const fontSize = Math.random();
