@@ -17,7 +17,7 @@ describe('Unit : NiAnalytics Number Component', () => {
         styleService = jasmine.createSpyObj('styleService', ['getColor']);
         rangePositionBuilderFactory = jasmine.createSpyObj('rangePositionBuilderFactory', ['forBaseRange']);
         rangePostionBuilder = jasmine.createSpyObj('rangePostionBuilder', ['withValue']);
-        rangePositionCalculator = jasmine.createSpyObj('rangePositionCalculator', ['getPositionBetween']);
+        rangePositionCalculator = jasmine.createSpyObj('rangePositionCalculator', ['getPositionBetween', 'hasReached']);
 
         rangePositionBuilderFactory.forBaseRange.and.returnValue(rangePostionBuilder);
         rangePostionBuilder.withValue.and.returnValue(rangePositionCalculator);
@@ -164,6 +164,40 @@ describe('Unit : NiAnalytics Number Component', () => {
             );
             expect(component.fontSize).toBeDefined();
             expect(component.fontSize).toBe(fontSize + component.fontUnit);
+        });
+
+    });
+
+    describe('with blink effect', () => {
+
+        beforeEach(() => {
+            component.fromValue = 0;
+            component.toValue = 100;
+        });
+
+        it('should not blink if disabled', () => {
+            component.enableBlinkEffect = false;
+            componentFixture.detectChanges();
+
+            expect(component.blink).toBeFalsy();
+        });
+
+        it('should blink if enabled and value reached', () => {
+            rangePositionCalculator.hasReached.and.returnValue(true);
+            component.enableBlinkEffect = true;
+            componentFixture.detectChanges();
+
+            expect(rangePositionCalculator.hasReached).toHaveBeenCalled();
+            expect(component.blink).toBeTruthy();
+        });
+
+        it('should not blink if enabled and value not reached', () => {
+            rangePositionCalculator.hasReached.and.returnValue(false);
+            component.enableBlinkEffect = true;
+            componentFixture.detectChanges();
+
+            expect(rangePositionCalculator.hasReached).toHaveBeenCalled();
+            expect(component.blink).toBeFalsy();
         });
 
     });
