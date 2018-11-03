@@ -1,9 +1,9 @@
-import { RangePositionBuilderFactory } from './../services/range-position-builder-factory.service';
+import { RangePositionBuilderFactory, Range } from './../services/range-position-builder-factory.service';
 import { ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { NiAnalyticsNumberComponent } from './ni-analytics-number.component';
 import { StyleService } from '../services/style-service';
 
-fdescribe('Unit : NiAnalytics Number Component', () => {
+describe('Unit : NiAnalytics Number Component', () => {
 
     let testBed;
     let componentFixture: ComponentFixture<NiAnalyticsNumberComponent>;
@@ -73,6 +73,69 @@ fdescribe('Unit : NiAnalytics Number Component', () => {
         expect(rangePostionBuilder.withValue).toHaveBeenCalledWith(component.value);
         expect(styleService.getColor).toHaveBeenCalledWith(rangePositionCalculator);
         expect(component.color).toBe(color);
+    });
+
+    describe('with font-size', () => {
+
+        const fontSize = Math.random();
+
+        beforeEach(() => {
+            component.fromValue = 0;
+            component.toValue = 100;
+            rangePositionCalculator.getPositionBetween.and.returnValue(fontSize);
+        });
+
+        it('should not set font size if font unit not provided', () => {
+            component.fromFontSize = 10;
+            component.toFontSize = 100;
+
+            componentFixture.detectChanges();
+
+            expect(component.fontSize).toBeUndefined();
+        });
+
+        it('should not set font size if font unit not valid', () => {
+            component.fromFontSize = 10;
+            component.toFontSize = 100;
+            component.fontUnit = 'anythingElse';
+
+            componentFixture.detectChanges();
+
+            expect(component.fontSize).toBeUndefined();
+        });
+
+        it('should not set font size if font start range not provided', () => {
+            component.toFontSize = 100;
+            component.fontUnit = 'px';
+
+            componentFixture.detectChanges();
+
+            expect(component.fontSize).toBeUndefined();
+        });
+
+        it('should not set font size if font end range not provided', () => {
+            component.fromFontSize = 100;
+            component.fontUnit = 'px';
+
+            componentFixture.detectChanges();
+
+            expect(component.fontSize).toBeUndefined();
+        });
+
+        it('should set font size if font unit and range details provided', () => {
+            component.fromFontSize = 10;
+            component.toFontSize = 100;
+            component.fontUnit = 'px';
+
+            componentFixture.detectChanges();
+
+            expect(rangePositionCalculator.getPositionBetween).toHaveBeenCalledWith(
+                Range.between(component.fromFontSize, component.toFontSize)
+            );
+            expect(component.fontSize).toBeDefined();
+            expect(component.fontSize).toBe(fontSize + component.fontUnit);
+        });
+
     });
 
 });
