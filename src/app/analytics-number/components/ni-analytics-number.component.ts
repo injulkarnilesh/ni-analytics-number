@@ -1,5 +1,4 @@
-import { RangePositionCalculator } from './../services/range-position-builder-factory.service';
-import { RangePositionBuilder } from './../services/range-position-builder-factory.service';
+import { RangePositionCalculator, RangePositionBuilder, Deviation } from './../services/range-position-builder-factory.service';
 import { RangePositionBuilderFactory, Range } from './../services/range-position-builder-factory.service';
 import { Component, OnInit, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { StyleService } from '../services/style-service';
@@ -17,6 +16,8 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     @Input() displayValue: string;  // TODO USE
     @Input() fromValue: number;
     @Input() toValue: number;
+    @Input() meanDeviation: number;
+    @Input() deviation: number;
 
     @Input() fontUnit: string;
     @Input() fromFontSize: number;
@@ -38,12 +39,21 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     }
 
     ngOnInit() {
-        if (this.fromValue === undefined || this.toValue === undefined) {
-            console.error('fromValue and toValue are required');
-            return;
+        this.rangePostionBuilder = this.getRangePositionBuilder();
+        if (this.rangePostionBuilder) {
+            this.updateView();
+        } else {
+            console.error('(fromValue and toValue) or (meanDeviation and deviation) are required for ni analytics number');
         }
-        this.rangePostionBuilder = this.rangePositionBuilderFactory.forBaseRange(Range.between(this.fromValue, this.toValue));
-        this.updateView();
+    }
+
+    getRangePositionBuilder(): RangePositionBuilder {
+        if (this.fromValue != null && this.toValue != null) {
+            return this.rangePositionBuilderFactory.forBaseRange(Range.between(this.fromValue, this.toValue));
+        } else if (this.meanDeviation != null && this.deviation != null) {
+            return this.rangePositionBuilderFactory.forDeviation(Deviation.of(this.deviation).from(this.meanDeviation));
+        }
+        return undefined;
     }
 
     updateView(): void {

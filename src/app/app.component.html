@@ -7,8 +7,19 @@
                         [fontUnit]="'px'" [fromFontSize]="20" [toFontSize]="60"
                         [enableFontWeight]="true"
                         [enableBlinkEffect]="true">
-  </ni-analytics-number>  
+  </ni-analytics-number>
+  <h3>With range between 100 to 1000</h3>  
   <br>
+
+  <ni-analytics-number [value]="value" [displayValue]="200" 
+                        [meanDeviation]="1000" [deviation]="500"
+                        [fontUnit]="'px'" [fromFontSize]="20" [toFontSize]="60"
+                        [enableFontWeight]="true"
+                        [enableBlinkEffect]="true">
+  </ni-analytics-number>
+  <h3>With deviation of 500 from 1000</h3>  
+  <br>
+
   <input type="range" [(ngModel)]="value" min="0" max="1500">
   
 </div>

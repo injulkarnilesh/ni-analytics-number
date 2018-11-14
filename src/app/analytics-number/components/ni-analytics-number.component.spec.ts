@@ -15,11 +15,12 @@ describe('Unit : NiAnalytics Number Component', () => {
 
     beforeEach(() => {
         styleService = jasmine.createSpyObj('styleService', ['getColor']);
-        rangePositionBuilderFactory = jasmine.createSpyObj('rangePositionBuilderFactory', ['forBaseRange']);
+        rangePositionBuilderFactory = jasmine.createSpyObj('rangePositionBuilderFactory', ['forBaseRange', 'forDeviation']);
         rangePostionBuilder = jasmine.createSpyObj('rangePostionBuilder', ['withValue']);
         rangePositionCalculator = jasmine.createSpyObj('rangePositionCalculator', ['getPositionBetween', 'hasReached']);
 
         rangePositionBuilderFactory.forBaseRange.and.returnValue(rangePostionBuilder);
+        rangePositionBuilderFactory.forDeviation.and.returnValue(rangePostionBuilder);
         rangePostionBuilder.withValue.and.returnValue(rangePositionCalculator);
 
         TestBed.configureTestingModule({
@@ -59,6 +60,32 @@ describe('Unit : NiAnalytics Number Component', () => {
 
         expect(component.rangePostionBuilder).toBeDefined();
         expect(rangePositionBuilderFactory.forBaseRange).toHaveBeenCalled();
+    });
+
+
+    it('should not intialize rangePostionBuilder if deviation not defined', () => {
+        component.meanDeviation = 5000;
+        componentFixture.detectChanges();
+
+        expect(component.rangePostionBuilder).toBeUndefined();
+        expect(rangePositionBuilderFactory.forBaseRange).not.toHaveBeenCalled();
+    });
+
+    it('should not intialize rangePostionBuilder if meanDeviation not defined', () => {
+        component.deviation = 100;
+        componentFixture.detectChanges();
+
+        expect(component.rangePostionBuilder).toBeUndefined();
+        expect(rangePositionBuilderFactory.forBaseRange).not.toHaveBeenCalled();
+    });
+
+    it('should  intialize rangePostionBuilder if deviation and meanDeviation defined', () => {
+        component.meanDeviation = 1000;
+        component.deviation = 100;
+        componentFixture.detectChanges();
+
+        expect(component.rangePostionBuilder).toBeDefined();
+        expect(rangePositionBuilderFactory.forDeviation).toHaveBeenCalled();
     });
 
     it('should set color the first time', () => {

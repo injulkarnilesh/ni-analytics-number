@@ -1,8 +1,14 @@
+
 import { Injectable } from '@angular/core';
 
 interface RangePositionSelector {
     getPosition(): number;
 }
+
+export interface RangePositionBuilder {
+    withValue(value: number): RangePositionCalculator;
+}
+
 
 export class Range {
     private constructor(private _from: number, private _to: number) {
@@ -25,6 +31,28 @@ export class Range {
     }
 }
 
+export class Deviation {
+    private constructor(private _meanDeviation: number, private _deviation: number) {
+    }
+
+    static of(deviation: number) {
+        return {
+            from: function(meanDeviation: number) {
+                return new Deviation(meanDeviation, deviation);
+            }
+        };
+    }
+
+    get meanDeviation(): number {
+        return this._meanDeviation;
+    }
+
+    get deviation(): number {
+        return this._deviation;
+    }
+}
+
+
 export class RangePositionCalculator {
 
     constructor(private selector: RangePositionSelector) {
@@ -41,10 +69,15 @@ export class RangePositionCalculator {
 
 }
 
-export class RangePositionBuilder {
 
-    constructor(private baseRange: Range) {
+export class RangePositionBuilderWithBaseRange implements RangePositionBuilder {
 
+    private constructor(private baseRange: Range) {
+
+    }
+
+    static withRange(baseRange: Range): RangePositionBuilderWithBaseRange {
+        return new RangePositionBuilderWithBaseRange(baseRange);
     }
 
     withValue(value: number): RangePositionCalculator {
@@ -72,12 +105,40 @@ export class RangePositionBuilder {
 }
 
 
+export class RangePositionBuilderWithDeviation implements RangePositionBuilder {
+
+    private constructor(private deviation: Deviation) {
+    }
+
+    static withDeviation(deviation: Deviation): RangePositionBuilderWithDeviation {
+        return new RangePositionBuilderWithDeviation(deviation);
+    }
+
+    withValue(value: number): RangePositionCalculator {
+
+        if (value >= this.deviation.meanDeviation) {
+            return RangePositionBuilderWithBaseRange.withRange(
+                Range.between(this.deviation.meanDeviation, this.deviation.meanDeviation + this.deviation.deviation)
+                ).withValue(value);
+        }
+
+        return RangePositionBuilderWithBaseRange.withRange(
+            Range.between(this.deviation.meanDeviation, this.deviation.meanDeviation - this.deviation.deviation)
+            ).withValue(value);
+    }
+
+}
+
 
 @Injectable()
 export class RangePositionBuilderFactory {
 
     forBaseRange(range: Range): RangePositionBuilder {
-        return new RangePositionBuilder(range);
+        return RangePositionBuilderWithBaseRange.withRange(range);
+    }
+
+    forDeviation(deviation: Deviation): RangePositionBuilder {
+        return RangePositionBuilderWithDeviation.withDeviation(deviation);
     }
 
 }
