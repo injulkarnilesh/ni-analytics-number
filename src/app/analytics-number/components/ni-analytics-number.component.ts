@@ -104,7 +104,7 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     }
 
     private validFontUnit(): boolean {
-        return this.fontUnit && NiAnalyticsNumberComponent.FONT_UNITS_SUPPORTED.includes(this.fontUnit.toLocaleLowerCase());
+        return this.fontUnit && NiAnalyticsNumberComponent.FONT_UNITS_SUPPORTED.indexOf(this.fontUnit.toLocaleLowerCase()) > -1;
     }
 
 }
