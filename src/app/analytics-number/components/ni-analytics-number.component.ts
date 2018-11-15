@@ -13,7 +13,7 @@ export class NiAnalyticsNumberComponent implements OnInit, OnChanges {
     static FONT_UNITS_SUPPORTED: string[] = ['px', 'em', '%', 'pt' ];
 
     @Input() value: number;
-    @Input() displayValue: string;  // TODO USE
+    @Input() displayValue: string;
     @Input() fromValue: number;
     @Input() toValue: number;
     @Input() meanDeviation: number;

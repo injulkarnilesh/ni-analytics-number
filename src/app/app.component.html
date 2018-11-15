@@ -2,7 +2,7 @@
   <h1>
     Welcome to {{ title }}!
   </h1>
-  <ni-analytics-number [value]="value" [displayValue]="200" 
+  <ni-analytics-number [value]="value"
                         [fromValue]="100" [toValue]="1000"
                         [fontUnit]="'px'" [fromFontSize]="20" [toFontSize]="60"
                         [enableFontWeight]="true"
@@ -11,7 +11,7 @@
   <h3>With range between 100 to 1000</h3>  
   <br>
 
-  <ni-analytics-number [value]="value" [displayValue]="200" 
+  <ni-analytics-number [value]="value" [displayValue]="'(' + value + ')'" 
                         [meanDeviation]="1000" [deviation]="500"
                         [fontUnit]="'px'" [fromFontSize]="20" [toFontSize]="60"
                         [enableFontWeight]="true"
