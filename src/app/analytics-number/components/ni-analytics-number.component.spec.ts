@@ -2,6 +2,7 @@ import { RangePositionBuilderFactory, Range } from './../services/range-position
 import { ComponentFixture, TestBed, getTestBed } from '@angular/core/testing';
 import { NiAnalyticsNumberComponent } from './ni-analytics-number.component';
 import { StyleService } from '../services/style-service';
+import { SimpleChange } from '@angular/core';
 
 describe('Unit : NiAnalytics Number Component', () => {
 
@@ -53,7 +54,7 @@ describe('Unit : NiAnalytics Number Component', () => {
         expect(rangePositionBuilderFactory.forBaseRange).not.toHaveBeenCalled();
     });
 
-    it('should  intialize rangePostionBuilder if fromValue and toValue defined', () => {
+    it('should intialize rangePostionBuilder if fromValue and toValue defined', () => {
         component.fromValue = 0;
         component.toValue = 100;
         componentFixture.detectChanges();
@@ -62,6 +63,22 @@ describe('Unit : NiAnalytics Number Component', () => {
         expect(rangePositionBuilderFactory.forBaseRange).toHaveBeenCalled();
     });
 
+    it('should detect value change', () => {
+        component.fromValue = 0;
+        component.toValue = 100;
+        component.value = 50;
+        component.enableBlinkEffect = true;
+        componentFixture.detectChanges();
+        expect(component.blink).toBeFalsy();
+
+        rangePositionCalculator.hasReached.and.returnValue(true);
+        component.ngOnChanges({
+            value: new SimpleChange(100, 200, false)
+        });
+        componentFixture.detectChanges();
+
+        expect(component.blink).toBeTruthy();
+    });
 
     it('should not intialize rangePostionBuilder if deviation not defined', () => {
         component.meanDeviation = 5000;
