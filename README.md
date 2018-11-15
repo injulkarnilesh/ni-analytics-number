@@ -1,5 +1,7 @@
 # NiAnalyticsNumber
 
+[![Build Status](https://travis-ci.com/injulkarnilesh/ni-analytics-number.svg?branch=master)](https://travis-ci.com/injulkarnilesh/ni-analytics-number)
+
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.7.
 
 ## Development server
