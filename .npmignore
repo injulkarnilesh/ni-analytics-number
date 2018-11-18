@@ -1,0 +1,11 @@
+coverage
+e2e
+node_modules
+src
+.editorconfig
+.gitignore
+.npmignore
+.travis.yml
+angular.json
+tsconfig.json
+tslint.json
