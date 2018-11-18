@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 
-interface RangePositionSelector {
+export interface RangePositionSelector {
     getPosition(): number;
 }
 
@@ -36,11 +36,12 @@ export class Deviation {
     }
 
     static of(deviation: number) {
-        return {
+        const dev = {
             from: function(meanDeviation: number) {
                 return new Deviation(meanDeviation, deviation);
             }
         };
+        return dev;
     }
 
     get meanDeviation(): number {
