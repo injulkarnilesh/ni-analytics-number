@@ -1,26 +1,67 @@
 <div style="text-align:center">
   <h1>
-    Welcome to {{ title }}!
+    Demo {{ title }}
   </h1>
-  <ni-analytics-number [value]="value"
-                        [fromValue]="100" [toValue]="1000"
-                        [fontUnit]="'px'" [fromFontSize]="20" [toFontSize]="60"
-                        [enableFontWeight]="true"
-                        [enableBlinkEffect]="true">
-  </ni-analytics-number>
-  <h3>With range between 100 to 1000</h3>  
-  <br>
 
-  <ni-analytics-number [value]="value" [displayValue]="'(' + value + ')'" 
-                        [meanDeviation]="1000" [deviation]="500"
-                        [fontUnit]="'px'" [fromFontSize]="20" [toFontSize]="60"
-                        [enableFontWeight]="true"
-                        [enableBlinkEffect]="true">
-  </ni-analytics-number>
-  <h3>With deviation of 500 from 1000</h3>  
-  <br>
+  <input type="range" [(ngModel)]="value" min="0" max="2000">
+  <br><br>
+    Value :{{value}}
+  <br><br><br>
+  <div>
+    
+    <!-- HTML generated using hilite.me -->
+    <div style="float:left;background: #111111; overflow:auto;width:50%;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+      <pre style="margin: 0; line-height: 125%"> 
+        <br>
+        <ni-analytics-number [value]="value"
+            [fromValue]="100" [toValue]="1000"
+            [fontUnit]="'px'" [fromFontSize]="20" [toFontSize]="60"
+            [enableFontWeight]="true"
+            [enableBlinkEffect]="true">
+        </ni-analytics-number>
+        <br>
+        <span style="color: #e3fb0a; font-weight: bold">&lt;!--For range between 100 to 1000--&gt;</span>
+        <span style="color: #fb660a; font-weight: bold">&lt;ni-analytics-number</span> <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">value</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">value</span><span style="color: #ffffff">&quot;</span>
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">fromValue</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">100</span><span style="color: #ffffff">&quot;</span> 
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">toValue</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">1000</span><span style="color: #ffffff">&quot;</span>
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">fontUnit</span><span style="color: #ffffff">]=&quot;&#39;</span><span style="color: #ff0086; font-weight: bold">px</span><span style="color: #ffffff">&#39;&quot;</span>
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">fromFontSize</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">20</span><span style="color: #ffffff">&quot;</span> 
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">toFontSize</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">60</span><span style="color: #ffffff">&quot;</span>
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">enableFontWeight</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">true</span><span style="color: #ffffff">&quot;</span>
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">enableBlinkEffect</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">true</span><span style="color: #ffffff">&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>
+        <span style="color: #fb660a; font-weight: bold">&lt;/ni-analytics-number&gt;</span>
+      </pre>
+    </div>
+  </div>
+  
 
-  <input type="range" [(ngModel)]="value" min="0" max="1500">
+  <div>
+    <!-- HTML generated using hilite.me -->
+    <div style="background: #111111; overflow:auto;width:auto;border:solid gray;border-width:.1em .1em .1em .8em;padding:.2em .6em;">
+      <pre style="margin: 0; line-height: 125%">
+        <br>
+        <ni-analytics-number [value]="value" [displayValue]="'(' + value + ')'" 
+            [meanDeviation]="1000" [deviation]="500"
+            [fontUnit]="'px'" [fromFontSize]="20" [toFontSize]="60"
+            [enableFontWeight]="true"
+            [enableBlinkEffect]="true">
+        </ni-analytics-number>
+        <br>
+        <span style="color: #e3fb0a; font-weight: bold">&lt;!--For deviation of 500 from 1000--&gt;</span>
+        <span style="color: #fb660a; font-weight: bold">&lt;ni-analytics-number</span> <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">value</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">value</span><span style="color: #ffffff">&quot;</span> 
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">displayValue</span><span style="color: #ffffff">]=&quot;&#39;(&#39;</span> <span style="color: #ffffff">+</span> <span style="color: #ff0086; font-weight: bold">value</span> <span style="color: #ffffff">+</span> <span style="color: #ffffff">&#39;)&#39;&quot;</span> 
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">meanDeviation</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">1000</span><span style="color: #ffffff">&quot;</span> 
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">deviation</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">500</span><span style="color: #ffffff">&quot;</span>
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">fontUnit</span><span style="color: #ffffff">]=&quot;&#39;</span><span style="color: #ff0086; font-weight: bold">px</span><span style="color: #ffffff">&#39;&quot;</span> 
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">fromFontSize</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">20</span><span style="color: #ffffff">&quot;</span> 
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">toFontSize</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">60</span><span style="color: #ffffff">&quot;</span>
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">enableFontWeight</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">true</span><span style="color: #ffffff">&quot;</span>
+        <span style="color: #ffffff">[</span><span style="color: #ff0086; font-weight: bold">enableBlinkEffect</span><span style="color: #ffffff">]=&quot;</span><span style="color: #ff0086; font-weight: bold">true</span><span style="color: #ffffff">&quot;</span><span style="color: #fb660a; font-weight: bold">&gt;</span>
+        <span style="color: #fb660a; font-weight: bold">&lt;/ni-analytics-number&gt;</span>
+      </pre>
+    </div>
+  </div>
+  <br>
   
 </div>
 

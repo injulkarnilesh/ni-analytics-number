@@ -102,4 +102,5 @@ If enabled, the displayed value will be blinking when value is equal to bad valu
 ```
 
 # Example
-Link and/or gif goes here.
+
+![Demo](https://media.giphy.com/media/9PrEDQ7OxvBQIz8vMs/source.gif)
