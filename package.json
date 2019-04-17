@@ -15,9 +15,6 @@
       "entryFile": "./src/public_api.ts"
     }
   },
-  "files": [
-    "dist"
-  ],
   "peerDependencies": {
     "@angular/animations": "^6.0.3",
     "@angular/common": "^6.0.3",
